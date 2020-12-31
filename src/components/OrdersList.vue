@@ -23,7 +23,7 @@
           :key="index"
           @click="setActiveOrder(order, index)"
         >
-          {{ orders }}
+          {{ order.custid }}
         </li>
       </ul>
 
@@ -36,10 +36,16 @@
       <div v-if="currentOrder">
         <h4>Order</h4>
         <div>
-          <label><strong>Id:</strong></label> {{ currentOrder.id }}
+          <label><strong>OrderNo:</strong></label> {{ currentOrder.id }}
         </div>
         <div>
-          <label><strong>CustomerID:</strong></label> {{ orders.custid }}
+          <label><strong>CustomerID:</strong></label> {{ currentOrder.custid }}
+        </div>
+        <div>
+          <label><strong>Customer Name:</strong></label>  {{ currentOrder.info.customer }}      
+        </div>
+          <div v-for= "(i,index) in currentOrder.info.items" :key="i.product">
+          <label><strong>Items:</strong></label> {{ index }}: {{ i.product }} 
         </div>
       
 
@@ -73,9 +79,9 @@ export default {
   methods: {
     retrieveOrders() {
       OrderDataService.getAll()
-        /*.then(response => {this.orders = response.data.id;console.log(response.data); })*/
-         .then((response)=>(this.orders.custid = response.data.custid))
-         /*console.log(this.orders.custid)*/
+        .then(response => {this.orders = response.data;console.log(response.data); })
+        /* .then((response)=>(this.orders.id = response.data.id)*/
+         /*console.log(this.orders.data)*/
           
         .catch(e => {
           console.log(e);
@@ -105,7 +111,7 @@ export default {
     },
     
     searchTitle() {
-      OrderDataService.findById('MAX25')
+      OrderDataService.findById(this.order.id)
         .then(response => {
           this.orders = response.data;
           console.log(response.data);

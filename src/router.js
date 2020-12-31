@@ -26,6 +26,11 @@ export default new Router({
       path: "/new",
       name: "new",
       component: () => import("./components/Custom")
+    },
+    {
+      path: "/showorders",
+      name: "showorders",
+      component: () => import("./components/OrderListNew")
     }
 
   ]

@@ -13,6 +13,9 @@
         <li class="nav-item">
           <a href="/new" class="nav-link">New</a>
         </li>
+        <li class="nav-item">
+          <a href="/showorders" class="nav-link">List Orders</a>
+        </li>
       </div>
     </nav>
 
